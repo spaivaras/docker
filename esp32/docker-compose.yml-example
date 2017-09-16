@@ -1,0 +1,9 @@
+dev:
+  image: a1waras/esp32
+  volumes:
+    - .:/home/project/src
+  devices:
+    - "/dev/ttyUSB0:/dev/ttyUSB0"
+  stdin_open: true
+  tty: true
+
