@@ -29,6 +29,9 @@ cp -frv /build/files/* / | true
 echo 'export PATH="$PATH:/opt/esp/xtensa-esp32-elf/bin"' >> /home/project/.bashrc
 echo 'export IDF_PATH="/opt/esp/esp-idf"' >> /home/project/.bashrc
 
+# Allow project user to use /dev/tty.USB devices
+usermod -a -G dialout project
+
 # Clean up APT when done.
 source /usr/local/build_scripts/cleanup_apt.sh
 
