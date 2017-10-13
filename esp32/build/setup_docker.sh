@@ -3,6 +3,8 @@
 set -x
 set -e
 
+XTENSA_BUILD="xtensa-esp32-elf-linux64"
+
 # Install dependencies
 apt-get update
 apt-get install -y --no-install-recommends build-essential libncurses-dev flex bison gperf python python-serial
@@ -11,13 +13,15 @@ apt-get install -y --no-install-recommends build-essential libncurses-dev flex b
 mkdir -p /opt/esp
 cd /opt/esp
 
-# Download xtensa build tools (Change with new version)
-wget -O xtensa.tar.gz https://dl.espressif.com/dl/xtensa-esp32-elf-linux64-1.22.0-61-gab8375a-5.2.0.tar.gz
-tar -xzf xtensa.tar.gz
-rm xtensa.tar.gz
-
 # Download esp-idf
 git clone --recursive https://github.com/espressif/esp-idf.git
+
+# Download xtensa build tools (Change with new version)
+URL="$(grep "htt.*${XTENSA_BUILD}.*\.tar\.gz" esp-idf/docs/get-started/linux-setup.rst | tr -d " \t")"
+
+wget -O xtensa.tar.gz $URL
+tar -xzf xtensa.tar.gz
+rm xtensa.tar.gz
 
 # Setup file owners
 chown -R project.project /opt/esp
